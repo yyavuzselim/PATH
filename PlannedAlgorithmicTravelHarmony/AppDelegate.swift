@@ -1,9 +1,3 @@
-//
-//  AppDelegate.swift
-//  PlannedAlgorithmicTravelHarmony
-//
-//  Created by Yavuz Selim Yılmaz on 11.12.2024.
-//
 
 import UIKit
 import CoreData

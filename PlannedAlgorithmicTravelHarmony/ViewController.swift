@@ -9,19 +9,18 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var passwordText: UITextField!
-    @IBOutlet weak var emailText: UITextField!
+    @IBOutlet weak var imageView: UIImageView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        imageView.layer.cornerRadius = 15 // İstediğin değeri buraya gir
+        imageView.clipsToBounds = true 
     }
 
     @IBAction func logInButtonClicked(_ sender: Any) {
         performSegue(withIdentifier: "toAdressesVC", sender: nil)
     }
     
-    @IBAction func signUpClicked(_ sender: Any) {
-        performSegue(withIdentifier: "toSignUpVC", sender: nil)
-    }
 }
 

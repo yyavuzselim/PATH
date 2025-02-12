@@ -16,7 +16,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     var isPinAdded = false // Pin eklenip eklenmediğini takip eden değişken
     var selectedTitle = ""
-    var selectedTitleID: UUID?
+    var selectedTitleID : UUID?
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +48,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         // Eğer kayıtlı bir adres açılıyorsa
         if selectedTitle != "" {
             loadExistingData()
+            nameText.isEnabled = false
+            commentText.isEnabled = false
         }
     }
     
@@ -129,7 +133,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
                         let region = MKCoordinateRegion(center: annotation.coordinate, span: span)
                         mapView.setRegion(region, animated: true)
-                        locationManager.stopUpdatingLocation()
                     }
                 }
             }
@@ -137,8 +140,11 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
             print("Error fetching data")
         }
         
-        // Save butonunu gizle
+        // TextFieldları devre dışı bırak ve Save butonunu gizle
+        nameText.isEnabled = false
+        commentText.isEnabled = false
         saveButton.isHidden = true
+        locationManager.stopUpdatingLocation()
     }
     
     // MARK: - Save Butonu
@@ -168,7 +174,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if selectedTitle == "" {
             let location = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
-            let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             let region = MKCoordinateRegion(center: location, span: span)
             mapView.setRegion(region, animated: true)
             locationManager.stopUpdatingLocation()
